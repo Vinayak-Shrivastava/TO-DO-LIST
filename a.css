@@ -1,0 +1,31 @@
+#table
+{
+cursor:default;
+font-size:x-large;
+}  
+#details
+{
+position:fixed;
+top:0px;
+right:0px;
+cursor:default;
+}
+#btn
+{
+cursor:pointer;
+}
+#img
+{
+height:22px;
+width:25px;
+}
+#c1
+{
+background-color: #c2c5cc;
+font-family: "Lucida Console", "Courier New", monospace;
+}
+#c2
+{
+background-color: #f8f9f9;
+font-family: "Lucida Console", "Courier New", monospace;
+}
