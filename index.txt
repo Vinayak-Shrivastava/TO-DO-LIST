@@ -1,0 +1,24 @@
+<html>
+ <head>
+  <title>TO-DO LIST</title>
+  <link rel="stylesheet" href="a.css">
+ </head>
+ <body>
+  <center>
+   <h1><u>TO-DO LIST</u></h1>
+   <table id="table">
+	<th></th>
+        <th></th>
+	<th></th>
+	<th></th>
+	<th></th>
+   </table><br>
+   <div  id="details">0 task<br> 0 completed<br> 0 due</div>
+   <input id="i1" placeholder="Enter Task Name">
+   <input id="i2" placeholder="Enter Task Description">
+   <button id="btn" onclick="create_task()">Add Task</button><br>
+   </center>
+  <script src="b.js">
+  </script>
+ </body>
+</html>
