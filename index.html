@@ -4,12 +4,12 @@
   <style>
   #table
   {
-   cursor:default;                 //setting font size and cursor type for table
+   cursor:default;                 /*setting font size and cursor type for table*/
    font-size:x-large;
   }  
   #details
   {
-   position:fixed;                // fixing details paragraph to top right corner
+   position:fixed;               /*fixing details paragraph to top right corner*/
    top:0px;
    right:0px;
    cursor:default;
@@ -23,7 +23,7 @@
    height:22px;
    width:25px;
   }
-  #c1                                                     // different bg colors for alternate entries of the list
+  #c1                                                     /*different bg colors for alternate entries of the list*/
   {
    background-color: #c2c5cc;                               
    font-family: "Lucida Console", "Courier New", monospace;
@@ -38,19 +38,19 @@
  <body>
   <center>
    <h1><u>TO-DO LIST</u></h1>
-   <table id="table">                                  //main table in which the list will be formed
-    <tr>                                              //0th row
+   <table id="table">                                  <!-- main table in which the list will be formed-->
+    <tr>                                              <!--0th row-->
      <th></th>
-     <th></th>                                        //5 cells are made to define that ecah row will have 5 cells.
+     <th></th>                                        <!--5 cells are made to define that ecah row will have 5 cells.-->
      <th></th>
      <th></th>
      <th></th>
     </tr>
    </table><br>
-   <div  id="details">0 task<br> 0 completed<br> 0 due</div>              // shows total number of tasks , number of completed and due tasks.
-   <input id="i1" placeholder="Enter Task Name">                            // two input fields for entering a task detail
+   <div  id="details">0 task<br> 0 completed<br> 0 due</div>              <!-- shows total number of tasks , number of completed and due tasks.-->
+   <input id="i1" placeholder="Enter Task Name">                            <!-- two input fields for entering a task detail-->
    <input id="i2" placeholder="Enter Task Description">
-   <button id="btn" onclick="create_task()">Add Task</button><br>            // button to confirm creation of task
+   <button id="btn" onclick="create_task()">Add Task</button><br>            <!--button to confirm creation of task-->
   </center>
   <script>
 var s_no=0,c=0;       //s_no keeps track of total number of tasks(or rows of the table excluding the first i.e th table,that's why starts from 0.). c keeps track of number of completed tasks    
