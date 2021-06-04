@@ -39,92 +39,91 @@
   <center>
    <h1><u>TO-DO LIST</u></h1>
    <table id="table">                                  //main table in which the list will be formed
-	<th></th>
-        <th></th>
-	<th></th>
-	<th></th>
-	<th></th>
+    <tr>                                              //0th row
+     <th></th>
+     <th></th>                                        //5 cells are made to define that ecah row will have 5 cells.
+     <th></th>
+     <th></th>
+     <th></th>
+    </tr>
    </table><br>
-   <div  id="details">0 task<br> 0 completed<br> 0 due</div>
-   <input id="i1" placeholder="Enter Task Name">
+   <div  id="details">0 task<br> 0 completed<br> 0 due</div>              // shows total number of tasks , number of completed and due tasks.
+   <input id="i1" placeholder="Enter Task Name">                            // two input fields for entering a task detail
    <input id="i2" placeholder="Enter Task Description">
-   <button id="btn" onclick="create_task()">Add Task</button><br>
-   </center>
+   <button id="btn" onclick="create_task()">Add Task</button><br>            // button to confirm creation of task
+  </center>
   <script>
-var s_no=0,c=0;
-var x;
-let i=0;
+var s_no=0,c=0;       //s_no keeps track of total number of tasks(or rows of the table excluding the first i.e th table,that's why starts from 0.). c keeps track of number of completed tasks    
+let i=0,j=0;          //i and j are used in loops
 
-function change_desc(x)
+function change_desc(x)        // function to change description called by clicking description cell of any row. Parmater x recieves the clicked cell as an object
 {
- if(x.innerHTML == "<input id=\"i3\" placeholder=\"Enter Task Description \">") {}
- else {x.innerHTML="<input id=\"i3\" placeholder=\"Enter Task Description \">"; }
- window.onkeypress = function keys(event)
+ if(x.innerHTML == "<input id=\"i3\" placeholder=\"Enter Task Description \">") {}     //if an input field is present in the cell laready does nothign else creates a new input field in that cell. To avoid creating new input field with each click.
+ else {x.innerHTML="<input id=\"i3\" placeholder=\"Enter Task Description \">"; }                 
+ window.onkeypress = function keys(event)        // function activated on a keypress and checks which key is pressed from the keyboard
  {
   var k = event.which || event.keyCode;
-  if(k==13) { document.getElementById("i3").value==""? alert("Please Enter new Description") : x.innerHTML=document.getElementById("i3").value + "." ;}
- }
- reset();
-}
+  if(k==13) { document.getElementById("i3").value==""? alert("Please Enter new Description") : x.innerHTML=document.getElementById("i3").value + "." ;}     //if enter key is pressed  then the entered value is given to the cell . the user recieved a message to fill details if the input field is empty.
+ }              
+}               //no need to call reset() as the input field i3 is created ecah time this function runs and is destroyed as the cell's innerHTML changes. also we do need to update the details.
 
-function change_stats(x)
+function change_stats(x)                // function to change status called by clicking status cell of any row. Parmater x recieves the clicked cell as an object
 {
- if(x.innerHTML == "DUE" && confirm("This Will Change status of the Task from DUE to COMPLETED")) 
+ if(x.innerHTML == "DUE" && confirm("This Will Change status of the Task from DUE to COMPLETED"))   // siwtches status from DUE to COMPLETED or vice versa after conformation from user.
  {
   x.innerHTML = "COMPLETED";
-  c++;
-  if(c==s_no && c!=0) alert("ALL TASK COMPLETED!!!");
+  c++;                // a new task is now completed and hence number of completed task increase by one.
+  if(c==s_no && c!=0) alert("ALL TASK COMPLETED!!!");          //a measage to show all task are completed
  }
  else if(x.innerHTML == "COMPLETED" && confirm("This Will Change status of the Task from COMPLETED to DUE"))
  {
   x.innerHTML = "DUE";
-  c--;
+  c--;              // a completed task is reported due and thus number of completed task is decreased by one
  }
- reset();
+ reset();           // calling reset to update details.
 }
 
-function del_task(x)
+function del_task(x)    //function to delete a task called by clicking delete image cell of any row. Parmater x recieves the clicked cell as an object
 {
- for(i=0;i<=s_no;i++)
+ for(i=0;i<=s_no;i++)     // for loop1 to determine which row the cell belongs to by checking each 5th cell in every row with x. 
  {
-  if(document.getElementById("table").rows[i].cells[4] == x && confirm("This Task will be deleted")) 
+  if(document.getElementById("table").rows[i].cells[4] == x && confirm("This Task will be deleted"))  //if a 5th(index=4) cell of ith row matches with the object in x then they are the same and i is the required row, if the users confirm the deletion, this row is deleted.
   {
-   document.getElementById("table").rows[i].cells[3].innerHTML=="COMPLETED" ? c-- : c  ;
-   document.getElementById("table").deleteRow(i);
-   s_no--   
-   reset();
-   for(j=1;j<=s_no;j++)
+   document.getElementById("table").rows[i].cells[3].innerHTML=="COMPLETED" ? c-- : c  ;       // if the status for this row is COMPLETED then reduce c as a completed row is going to be deleted.
+   document.getElementById("table").deleteRow(i);                                            // delete the row
+   s_no--                                                                                   // reducing number of tasks(rows) 
+   reset();                                                                              //calling reset to update details.
+   for(j=1;j<=s_no;j++)                                            // for loop2 to rearrange the ordering of tasks i.e all tasks with serial number greater than the one deleted get their serial number decreased by one
    {
-    if( document.getElementById("table").rows[j].cells[0].innerHTML > i)
+    if( document.getElementById("table").rows[j].cells[0].innerHTML > i) //finds rows with serial number greater than the one just deleted
     {
-     document.getElementById("table").rows[j].cells[0].innerHTML--;
+     document.getElementById("table").rows[j].cells[0].innerHTML--;     //reduces their serial number
      document.getElementById("table").rows[j].cells[0].innerHTML += ".";
-     document.getElementById("table").rows[j].id == "c1" ? document.getElementById("table").rows[j].id = "c2" : document.getElementById("table").rows[j].id = "c1"; 
+     document.getElementById("table").rows[j].id == "c1" ? document.getElementById("table").rows[j].id = "c2" : document.getElementById("table").rows[j].id = "c1";  // switches their id so that the colour pattern isn't disturbed.
     }
-   }
-   i=s_no+1;
-  }
- }
+   }            //for loop2 ends
+   i=s_no+1;               // no need to run the loop and further now as the required row is found and deleted so i is given a false state value.
+  }             //if block ends
+ }          //for loop1 ends
 }
 
-function reset()
+function reset()                    // function to reset things
 {
- document.getElementById("btn").style.visibility = "visible";
- document.getElementById("i1").value = "";
+ document.getElementById("i1").value = "";                            //reset values of input fields to nothing.
  document.getElementById("i2").value = "";
- document.getElementById("details").innerHTML = s_no+" task" +(s_no>1?"s":"") +"<br>" + c +" completed<br>" + (s_no-c) +" due" ;
+ document.getElementById("details").innerHTML = s_no+" task" +(s_no>1?"s":"") +"<br>" + c +" completed<br>" + (s_no-c) +" due" ;    // updating details
 }
 
-function create_task()
+function create_task()       // function to create a task
 {
- if(document.getElementById("i1").value=="" || document.getElementById("i2").value=="") alert("Please fill all detials");
+ if(document.getElementById("i1").value=="" || document.getElementById("i2").value=="") alert("Please fill all detials");      //if the input fieldds are empty user is told to input something
  else
  {
-  s_no++;
-  document.getElementById("table").insertRow(s_no);
-  document.getElementById("table").rows[s_no].innerHTML = "<td>"+ s_no+ ".</td><td>"+document.getElementById("i1").value+":</td><td style=\"cursor:text;\" onclick=\"change_desc(this)\">"+ document.getElementById("i2").value+".</td> <td onclick=\"change_stats(this)\" style=\"cursor:pointer;\">DUE</td><td onclick=\"del_task(this)\" style=\"cursor:pointer;\"><img id=\"img\" src=\"delete.png\"></td>";
-  s_no%2==0 ? document.getElementById("table").rows[s_no].id="c1" : document.getElementById("table").rows[s_no].id="c2" ;
-  reset();
+  s_no++;                                                                                                                      // increaing s_no as a new task(new row) is going to be added.
+  document.getElementById("table").insertRow(s_no);                                 					       //adding a new row and and then filling in the cells.
+  document.getElementById("table").rows[s_no].innerHTML = "<td>"+ s_no+ ".</td><td>"+document.getElementById("i1").value+":</td><td style=\"cursor:text;\" onclick=\"change_desc(this)\">"+ document.getElementById("i2").value+".</td> <td onclick=\"change_stats(this)\" style=\"cursor:pointer;\">DUE</td><td onclick=\"del_task(this)\" style=\"cursor:pointer;\"><img id=\"img\" src=\"delete.png\"></td>";          //the cursor for description cell is text as it can be clicked to change description and for status cell is pointer as it can be clicked to toggle the status.Clicking description cell calls change_desc() with clicked cell as the object parameter using "this" keyword.similarly change_stats() and del_task() are called.    
+  s_no%2==0 ? document.getElementById("table").rows[s_no].id="c1" : document.getElementById("table").rows[s_no].id="c2" ;      // the rows are given ids as c1 or c2 to give alternate bg colors.
+  reset();                                                                                                                     //once a new task is  created reset called to reset values of the input fields and update details.
  }
 }
 
